@@ -10,6 +10,5 @@ def balances(client):
         'locked': Decimal(x['locked']),
         'total': Decimal(x['free']) + Decimal(x['locked'])}
             for x in data if Decimal(x['free']) > 0 or Decimal(x['locked']) > 0]
-    filtered = [ x for x in decimals if x['total'] > 1]
 
-    return sorted(filtered, reverse=True, key=lambda x: x['total'])
+    return sorted(decimals, reverse=True, key=lambda x: x['total'])
