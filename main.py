@@ -2,6 +2,7 @@ import json
 from pprint import pprint
 from decimal import *
 import sys
+import os
 
 from init import client
 import balances
@@ -12,6 +13,16 @@ getcontext().prec = 8
 
 blacklisted = ['BCC', 'ETH', 'BTC', 'BNB']
 bal = [x for x in balances.balances(client) if x['asset'] not in blacklisted]
+
+if os.path.isfile('assets.json'):
+    assets = json.load(open('assets.json'))
+    for asset in assets:
+        if len([x for x in bal if x['asset'] == asset]) == 0:
+            bal.append({
+                'asset': asset,
+                'free': Decimal(0),
+                'locked': Decimal(0),
+                'total': Decimal(0)})
 
 prices.update_cache(client)
 all_deals = []
