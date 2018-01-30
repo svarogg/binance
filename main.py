@@ -28,6 +28,8 @@ prices.update_cache(client)
 all_deals = []
 for b in bal:
     asset = b['asset']
+    if(asset == 'USDT'):
+        continue
     symbol = asset + 'BTC'
     all_deals.append(trades.scan(client, asset, symbol))
 
