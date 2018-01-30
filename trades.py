@@ -49,8 +49,8 @@ def scan(client, asset, symbol):
             if trade['commissionAsset'] == 'BTC':
                 got -= Decimal(trade['commission'])
 
-            if total_buy - total_sell < 1:
-                if total_buy > 0:
+            if total_buy - total_sell < 0.1:
+                if total_buy > total_sell:
                     closed_deals.append(create_closed_deal(top, total_buy, total_sell, paid, got))
                 top = Decimal(0)
 
